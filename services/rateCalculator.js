@@ -10,7 +10,7 @@ const detectZone = async (address) => {
 
   return zones.find((zone) => {
     const pincodeMatch = pincode && zone.pincodes.includes(pincode);
-    const areaMatch = zone.areas.some((area) => normalizedAddress.includes(area));
+    const areaMatch = zone.areas.some((area) => area && area.trim() !== "" && normalizedAddress.includes(area));
     const nameMatch = normalizedAddress.includes(zone.name.toLowerCase());
 
     return pincodeMatch || areaMatch || nameMatch;

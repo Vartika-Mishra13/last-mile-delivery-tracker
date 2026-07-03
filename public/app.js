@@ -9,7 +9,7 @@ const sessionRole = document.querySelector("#sessionRole");
 const statusText = document.querySelector("#statusText");
 const dashboardTitle = document.querySelector("#dashboardTitle");
 const dashboardSubtitle = document.querySelector("#dashboardSubtitle");
-
+const BASE_URL = window.location.origin.startsWith("http") ? window.location.origin : "http://localhost:5000";
 const roleContent = {
   customer: {
     panel: "customerPanel",
@@ -50,7 +50,7 @@ const api = async (path, options = {}) => {
   if (statusText) statusText.textContent = "Loading...";
 
   try {
-    const response = await fetch(path, {
+    const response = await fetch(BASE_URL + path, {
       ...options,
       headers: {
         "Content-Type": "application/json",
@@ -60,20 +60,25 @@ const api = async (path, options = {}) => {
     });
 
     const data = await response.json();
-    if (statusText) statusText.textContent = response.ok ? "Success" : "Request failed";
+
+    if (statusText) {
+      statusText.textContent = response.ok ? "Success" : "Request failed";
+    }
+
     show(data);
     return data;
   } catch (error) {
     if (statusText) statusText.textContent = "Network error";
+
     show({
       success: false,
-      message: "Could not reach the API. Make sure the server is running on http://localhost:5000.",
+      message: "Could not reach API",
       error: error.message,
     });
+
     return { success: false };
   }
 };
-
 const switchAuthForm = (mode) => {
   document.querySelector("#showLogin").classList.toggle("active", mode === "login");
   document.querySelector("#showRegister").classList.toggle("active", mode === "register");
