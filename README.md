@@ -2,6 +2,10 @@
 
 Delivery management platform with customer ordering, admin dispatch, configurable zone pricing, delivery-agent updates, immutable tracking history, failed-delivery rescheduling, and notification hooks.
 
+## Live Demo
+
+Access the live application here: https://last-mile-delivery-tracker-gkih.onrender.com/
+
 ## What Is Included
 
 - Backend REST API with role-based JWT auth for `customer`, `admin`, and `deliveryAgent`.
@@ -147,6 +151,3 @@ The application is fully configured for cloud deployment. Since the database is 
 5. Once deployed, the frontend and backend will automatically work together at your Render URL.
 
 
-## Live Demo
-
-Access the live application here: https://last-mile-delivery-tracker-gkih.onrender.com/
