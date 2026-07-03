@@ -1,0 +1,292 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Last-Mile Delivery Tracker</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <main class="app-shell">
+      <section id="authView" class="auth-view">
+        <div class="auth-hero">
+          <p class="eyebrow">Last-Mile Delivery Tracker</p>
+          <h1>Quote, dispatch, track, and notify from one delivery platform.</h1>
+          <p>
+            Configurable zone pricing, role-based dashboards, agent assignment, failed-delivery
+            rescheduling, and immutable tracking history.
+          </p>
+          <div class="feature-list">
+            <span>Zone Rate Cards</span>
+            <span>Agent Assignment</span>
+            <span>Status Timeline</span>
+          </div>
+        </div>
+
+        <section class="auth-card">
+          <div class="auth-switch">
+            <button id="showLogin" class="active" type="button">Login</button>
+            <button id="showRegister" type="button">Register</button>
+          </div>
+
+          <form id="loginForm" class="auth-form active">
+            <h2>Welcome back</h2>
+            <label>Email <input name="email" type="email" value="customer@example.com" required /></label>
+            <label>Password <input name="password" type="password" value="Password@123" required /></label>
+            <button>Login</button>
+            <div class="quick-logins">
+              <button type="button" data-login="customer@example.com">Customer Demo</button>
+              <button type="button" data-login="admin@example.com">Admin Demo</button>
+              <button type="button" data-login="agent@example.com">Agent Demo</button>
+            </div>
+          </form>
+
+          <form id="registerForm" class="auth-form">
+            <h2>Create customer account</h2>
+            <label>Name <input name="name" placeholder="Your name" required /></label>
+            <label>Email <input name="email" type="email" placeholder="you@example.com" required /></label>
+            <label>Password <input name="password" type="password" placeholder="Minimum 6 characters" required /></label>
+            <label>Phone <input name="phone" placeholder="Phone number" /></label>
+            <label>Address <input name="address" placeholder="Default address" /></label>
+            <button>Register</button>
+            <p class="hint">Self-registration creates a customer account. Admin/agent users are created by admin.</p>
+          </form>
+        </section>
+      </section>
+
+      <section id="dashboardView" class="dashboard-view hidden">
+        <aside class="sidebar">
+          <div class="brand">
+            <span class="brand-mark">LM</span>
+            <div>
+              <strong>Last Mile</strong>
+              <small>Delivery Tracker</small>
+            </div>
+          </div>
+
+          <nav class="nav-tabs">
+            <button class="tab" data-panel="customerPanel" data-role="customer">Customer Portal</button>
+            <button class="tab" data-panel="adminPanel" data-role="admin">Admin Console</button>
+            <button class="tab" data-panel="agentPanel" data-role="deliveryAgent">Agent App</button>
+          </nav>
+
+          <section class="session-card">
+            <small>Current Session</small>
+            <strong id="sessionName">Not logged in</strong>
+            <span id="sessionRole">No active role</span>
+            <button id="logoutButton" type="button">Logout</button>
+          </section>
+        </aside>
+
+        <section class="workspace">
+          <header class="topbar">
+            <div>
+              <p class="eyebrow">Operations Dashboard</p>
+              <h1 id="dashboardTitle">Dashboard</h1>
+              <p id="dashboardSubtitle">Use the tools available for your role.</p>
+            </div>
+          </header>
+
+          <section id="customerPanel" class="panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Customer Portal</p>
+                <h2>Quote, create, track, and reschedule orders</h2>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <form id="quoteForm" class="card span-2">
+                <div class="card-title">
+                  <h3>Quote & Create Order</h3>
+                  <span>Shows final charge before confirmation</span>
+                </div>
+                <div class="form-grid">
+                  <label>Pickup Address <input name="pickupAddress" value="Rohini 110085" required /></label>
+                  <label>Drop Address <input name="dropAddress" value="Hauz Khas 110016" required /></label>
+                  <label>Length <input name="length" type="number" value="40" required /></label>
+                  <label>Breadth <input name="breadth" type="number" value="30" required /></label>
+                  <label>Height <input name="height" type="number" value="20" required /></label>
+                  <label>Actual Weight <input name="actualWeight" type="number" value="8" required /></label>
+                  <label>Order Type
+                    <select name="orderType">
+                      <option>B2C</option>
+                      <option>B2B</option>
+                    </select>
+                  </label>
+                  <label>Payment
+                    <select name="paymentType">
+                      <option>Prepaid</option>
+                      <option>COD</option>
+                    </select>
+                  </label>
+                </div>
+                <div class="actions">
+                  <button data-action="quote">Calculate Quote</button>
+                  <button data-action="create" class="secondary-action">Create Confirmed Order</button>
+                </div>
+              </form>
+
+              <form id="customerOrderForm" class="card">
+                <div class="card-title">
+                  <h3>Tracking</h3>
+                  <span>Timeline and failed-delivery reschedule</span>
+                </div>
+                <label>Order ID <input name="orderId" placeholder="Paste order _id" /></label>
+                <label>Reschedule Date <input name="rescheduleDate" type="date" /></label>
+                <div class="actions stacked">
+                  <button data-action="list">My Orders</button>
+                  <button data-action="track">Track Order</button>
+                  <button data-action="reschedule">Reschedule Failed Order</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section id="adminPanel" class="panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Admin Console</p>
+                <h2>Configure zones, rates, dispatch, and order lifecycle</h2>
+              </div>
+              <div class="actions">
+                <button id="loadZones">Load Zones</button>
+                <button id="loadRates">Load Rates</button>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <form id="zoneForm" class="card">
+                <div class="card-title">
+                  <h3>Create Zone</h3>
+                  <span>Area keywords and pincodes power detection</span>
+                </div>
+                <label>Name <input name="name" value="Central Zone" /></label>
+                <label>Areas <input name="areas" value="central,connaught place" /></label>
+                <label>Pincodes <input name="pincodes" value="110001" /></label>
+                <div class="form-grid two-col">
+                  <label>Lat <input name="lat" type="number" step="any" value="28.6315" /></label>
+                  <label>Lng <input name="lng" type="number" step="any" value="77.2167" /></label>
+                </div>
+                <button>Create Zone</button>
+              </form>
+
+              <form id="rateCardForm" class="card">
+                <div class="card-title">
+                  <h3>Rate Card</h3>
+                  <span>Configurable pricing, no hardcoding</span>
+                </div>
+                <label>From Zone ID <input name="fromZone" placeholder="Zone ObjectId" /></label>
+                <label>To Zone ID <input name="toZone" placeholder="Zone ObjectId" /></label>
+                <div class="form-grid two-col">
+                  <label>Order Type
+                    <select name="orderType">
+                      <option>B2C</option>
+                      <option>B2B</option>
+                    </select>
+                  </label>
+                  <label>Rate/Kg <input name="ratePerKg" type="number" value="65" /></label>
+                  <label>COD <input name="codSurcharge" type="number" value="50" /></label>
+                  <label>Min Charge <input name="minCharge" type="number" value="100" /></label>
+                </div>
+                <button>Save Rate Card</button>
+              </form>
+
+              <form id="adminOrderForm" class="card span-2">
+                <div class="card-title">
+                  <h3>Dispatch Control</h3>
+                  <span>Assign agents or override order status</span>
+                </div>
+                <div class="form-grid">
+                  <label>Order ID <input name="orderId" placeholder="Order ObjectId" /></label>
+                  <label>Agent ID <input name="agentId" placeholder="Agent ObjectId" /></label>
+                  <label>Status
+                    <select name="status">
+                      <option>Created</option>
+                      <option>Picked Up</option>
+                      <option>In Transit</option>
+                      <option>Out for Delivery</option>
+                      <option>Delivered</option>
+                      <option>Failed</option>
+                    </select>
+                  </label>
+                  <label>Note <input name="note" value="Updated by admin" /></label>
+                </div>
+                <div class="actions">
+                  <button data-action="orders">List Orders</button>
+                  <button data-action="assign">Manual Assign</button>
+                  <button data-action="auto">Auto Assign</button>
+                  <button data-action="status">Override Status</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section id="agentPanel" class="panel">
+            <div class="section-heading">
+              <div>
+                <p class="eyebrow">Agent App</p>
+                <h2>Update location, availability, and delivery status</h2>
+              </div>
+            </div>
+
+            <div class="content-grid">
+              <form id="agentStatusForm" class="card">
+                <div class="card-title">
+                  <h3>Assigned Order</h3>
+                  <span>Status updates notify the customer</span>
+                </div>
+                <label>Order ID <input name="orderId" placeholder="Order ObjectId" /></label>
+                <label>Status
+                  <select name="status">
+                    <option>Picked Up</option>
+                    <option>In Transit</option>
+                    <option>Out for Delivery</option>
+                    <option>Delivered</option>
+                    <option>Failed</option>
+                  </select>
+                </label>
+                <label>Note <input name="note" value="Agent update" /></label>
+                <div class="actions stacked">
+                  <button data-action="assigned">My Assigned Orders</button>
+                  <button data-action="status">Update Status</button>
+                </div>
+              </form>
+
+              <form id="agentLocationForm" class="card">
+                <div class="card-title">
+                  <h3>Availability</h3>
+                  <span>Used by nearest-agent assignment</span>
+                </div>
+                <div class="form-grid two-col">
+                  <label>Lat <input name="lat" type="number" step="any" value="28.7041" /></label>
+                  <label>Lng <input name="lng" type="number" step="any" value="77.1025" /></label>
+                </div>
+                <label>Available
+                  <select name="isAvailable">
+                    <option value="true">true</option>
+                    <option value="false">false</option>
+                  </select>
+                </label>
+                <div class="actions stacked">
+                  <button data-action="location">Update Location</button>
+                  <button data-action="availability">Set Availability</button>
+                </div>
+              </form>
+            </div>
+          </section>
+
+          <section class="result-panel">
+            <div class="card-title">
+              <h3>API Response</h3>
+              <span id="statusText">Ready</span>
+            </div>
+            <pre id="output">Login to begin.</pre>
+          </section>
+        </section>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

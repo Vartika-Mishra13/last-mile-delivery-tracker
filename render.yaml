@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: last-mile-delivery-tracker
+    env: node
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: 20
+      - key: PORT
+        value: 5000
+      - key: MONGO_URI
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: ALLOW_ROLE_REGISTRATION
+        value: false
+      - key: EMAIL_WEBHOOK_URL
+        sync: false
+      - key: SMS_WEBHOOK_URL
+        sync: false
+      - key: NOTIFICATION_WEBHOOK_TOKEN
+        sync: false
